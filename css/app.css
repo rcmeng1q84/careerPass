@@ -1,0 +1,256 @@
+/* =========
+Your custom styles go here
+ ========= */
+
+@font-face {
+    font-family : ProximaNova-Regular;
+    src         : url('../fonts/ProximaNova-Light.otf');
+}
+
+@font-face {
+    font-family : ProximaNova-Regular;
+    src         : url('../fonts/ProximaNova-Regular.otf');
+}
+
+@font-face {
+    font-family : ProximaNova-Bold;
+    src         : url('../fonts/ProximaNova-Bold.otf');
+}
+
+@font-face {
+    font-family : ProximaNova-Extrabold;
+    src         : url('../fonts/ProximaNova-Extrabold.otf');
+}
+
+/* ------------------------------------------------------------------
+General Styles
+------------------------------------------------------------------ */
+
+body {
+    background         : #fff;
+    overflow-x         : hidden;
+    -ms-overflow-style : scrollbar;
+    font               : 400 14px/1.8 "ProximaNova-Regular", 'Helvetica', 'Arial';
+    color              : #777;
+}
+.text-center{
+    text-align : center;
+}
+.clear{
+    clear : both;
+}
+.tabs-animated-wrap .tab{
+    position: relative;
+    width: 100%;
+    overflow: scroll;
+    height: 100%;
+}
+
+.left-menu .page-content{
+    background-color: #3C4A56;
+    color: rgba(255,255,255,.87);
+}
+.left-menu .left-menu-avatar{
+    border-radius: 50%;
+    width : 50px;
+    height : 50px;
+    float : left;
+}
+.left-menu-content{
+    padding : 0 20px;
+}
+.left-menu .left-menu-user{
+
+    float : left;
+    height : 50px;
+    margin-left : 15px;
+}
+.left-menu .left-menu-user h4{
+    font-weight :normal;
+    margin-top : 0;
+    margin-bottom : 3px;
+}
+.left-menu .left-menu-user h5{
+    font-weight :normal;
+    margin : 0;
+    opacity: 0.5;
+}
+
+.page-content {
+    /*padding-top: 0px !important;*/
+}
+.content-block{
+    margin-top :12px;
+    margin-bottom :12px;
+}
+.content-block-inner{
+    background : #EDEEEF;
+    padding: 6px 16px;
+    padding-bottom: 12px;
+    border-radius: 7px!important;
+}
+.dark-bg{
+
+    background : -webkit-linear-gradient(left,#4C5E6A,#313F4A);
+    background: -o-linear-gradient(left,#4C5E6A,#313F4A);
+    background: -moz-linear-gradient(left,#4C5E6A,#313F4A);
+    background: linear-gradient(left,#4C5E6A,#313F4A);
+}
+.page>.navbar, .page>.toolbar, .view>.navbar, .view>.toolbar, .views>.navbar, .views>.toolbar {
+    /*position: relative !important;*/
+}
+.toolbar{
+    top : 56px;
+}
+a.tab-link.link.active {
+    border-bottom: 8px solid #FFAC22;
+}
+.navbar{
+
+    /*position: relative !important;*/
+}
+.main-tabbar{
+/*position: relative;*/
+}
+
+.date-block{
+    height: 34px;
+}
+.date-picker{
+    float : right;
+    padding-top: 10px;
+    color: #C3C8D2;
+}
+.date-picker span{
+    margin-left :10px;
+}
+.date-title{
+    font-size: 24px;
+    font-family :'ProximaNova-Bold','Arial';
+    letter-spacing: 1px;
+}
+
+
+.tag-block-title{
+    position : relative;
+    border-bottom: solid 1px #c3c3c3;
+    margin: 0 -16px;
+    margin-bottom: 6px;
+    padding: 0 16px;
+    padding-bottom: 5px;
+    clear : both;
+}
+.tag-block-category{font-size: 16px;float : left;color: #686C80;}
+.tag-block-percent{
+    position: absolute;
+    top: -5px;
+    right: 13px;
+    font-size: 24px;
+    color: #9b9da7;
+    font-weight: bold;
+}
+
+.chip{
+    /* margin-left : 5px; */
+    margin-right: 10px;
+    margin-top: 8px;
+    color: #2a2a2a;
+    background : #fff;
+    border-radius: 25px;
+    padding: 0px 10px;
+    padding-right: 0;
+    height : 25px;
+}
+
+.chip-media {
+    margin-left: 6px;
+    margin-right: 4px;
+    width: 20px;
+    height: 15px;
+    border-left: solid 1px #9a9a9a;
+    border-radius: 0;
+    font-size: 13px;
+    color: #717171;
+    background: #ffffff;
+}
+.chip-delete {
+    left: -6px;
+    position: relative;
+}
+
+/*
+POPUP
+*/
+.post-popup{
+    opacity : 0.8;
+}
+.post-popup.modal-in {
+    opacity :1;
+    transform: scale(0.9);
+}
+
+.post-form-block{
+    height : 50%;
+    margin : 0;
+    padding :0px 20px;
+    padding-top :20px;
+}
+.post-form-block select, .post-form-block input{
+    background: #eee !important;
+    padding: 2px 10px !important;
+    margin-top: 5px !important;
+    border-radius: 5px !important;
+    border: 0;
+    font-size: 16px;
+    color: #ff9800 !important;
+}
+.post-tag-block{
+    height : 50%;
+    margin : 0;
+    background : #FFAC22;
+    padding :0px 20px;
+
+    color : #fff;
+
+}
+.post-tag-title {
+    font-size: 18px;
+    font-weight: normal;
+    color: #fff;
+    margin-bottom: 5px;
+}
+.post-tag-ok-block {
+    height: 100%;
+    background: #FFAC22;
+    margin: 0;
+    margin-top: -12px;
+}
+
+.post-add-button{
+    top : 50%;
+    right : 50px;
+}
+.post-tag-confirm{
+    position : absolute;
+    width : 100%;
+    margin : 0;
+    padding : 10px;
+    bottom : 0;
+    background : #E2940B;
+}
+.post-tag-confirm>div{
+    margin-left : 50%;
+    width : 50%;
+}
+.post-tag-confirm a{
+    font-size : 16px;
+    color : #fff !important;
+}
+.post-tag-ok-icon{
+    margin : 0 auto;
+    margin-top :30%;
+    color : #ffffff;
+    font-size : 56px;
+    text-align : center;
+    display : block;
+}

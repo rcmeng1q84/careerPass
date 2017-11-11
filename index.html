@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <link rel="stylesheet" href="css/framework7.material.min.css">
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/vertical.css">
+    <link rel="stylesheet" href="css/fontello.css">
+</head>
+<body>
+<div id="app">
+    <!-- Statusbar -->
+    <f7-statusbar></f7-statusbar>
+
+    <!-- Left Panel -->
+    <f7-panel left reveal layout="dark" class="left-menu">
+        <f7-view id="left-panel-view">
+            <f7-pages>
+                <f7-page>
+
+                    <div class="left-menu-content">
+                        <f7-block class="m-t-140">
+                            <img src="img/img.jpg" class="left-menu-avatar">
+                            <div class="left-menu-user">
+                                <h4>{{user.name}}</h4>
+                                <h5>{{user.email}}</h5>
+                            </div>
+                        </f7-block>
+                        <div class="clear"></div>
+
+
+                        <f7-list>
+                            <f7-list-item link="/about/" title="Home" link-view="#main-view"
+                                          link-close-panel active></f7-list-item>
+                            <f7-list-item link="/form/" title="Search" link-view="#main-view"
+                                          link-close-panel></f7-list-item>
+                            <f7-list-item link="/about/" title="To-do List" link-view="#main-view"
+                                          link-close-panel></f7-list-item>
+                        </f7-list>
+
+                    </div>
+
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-panel>
+
+    <!-- Right Panel -->
+    <f7-panel right cover layout="dark">
+        <f7-view id="right-panel-view" navbar-through :dynamic-navbar="true">
+            <f7-navbar v-if="$theme.ios" title="Right Panel" sliding></f7-navbar>
+            <f7-pages>
+                <f7-page>
+                    <f7-navbar v-if="$theme.ios" title="Right Panel" sliding></f7-navbar>
+                    <f7-block>
+                        <p>Right panel content goes here</p>
+                    </f7-block>
+                    <f7-block-title>Load page in panel</f7-block-title>
+                    <f7-list>
+                        <f7-list-item link="/about/" title="About"></f7-list-item>
+                        <f7-list-item link="/form/" title="Form"></f7-list-item>
+                    </f7-list>
+                    <f7-block-title>Load page in main view</f7-block-title>
+                    <f7-list>
+                        <f7-list-item link="/about/" title="About" link-view="#main-view"
+                                      link-close-panel></f7-list-item>
+                        <f7-list-item link="/form/" title="Form" link-view="#main-view" link-close-panel></f7-list-item>
+                    </f7-list>
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-panel>
+
+    <!-- Main Views -->
+    <f7-views>
+        <f7-view id="main-view" main>
+
+
+            <!-- Pages -->
+            <f7-pages>
+                <f7-page navbar-fixed toolbar-fixed>
+                    <f7-link class="floating-button color-orange" open-popup="#popup">
+                        <i class="icon icon-plus"></i>
+                    </f7-link>
+                    <!-- Navbar -->
+                    <f7-navbar class="dark-bg">
+                        <f7-nav-left>
+                            <f7-link icon="icon-bars" open-panel="left"></f7-link>
+                        </f7-nav-left>
+                        <f7-nav-center sliding>CareerPass</f7-nav-center>
+                        <f7-nav-right>
+                            <f7-link open-login-screen="#login-screen"><span class="icon-cog-1"></span></f7-link>
+                        </f7-nav-right>
+                    </f7-navbar>
+                    <f7-toolbar tabbar class="main-tabbar dark-bg">
+                        <f7-link tab-link="#tab1" active>Daily</f7-link>
+                        <f7-link tab-link="#tab2">Weekly</f7-link>
+                        <f7-link tab-link="#tab3">Monthly</f7-link>
+                    </f7-toolbar>
+
+
+                    <f7-tabs animated>
+                        <f7-tab id="tab1" active>
+
+                            <f7-block class="m-b-0 m-t-10">
+                                <div class="date-block">
+                                    <span class="date-title">{{date.day}} {{date.month}}</span>
+                                    <div class="date-picker">
+                                        <span class="icon-left-open"></span>
+                                        <span class="icon-right-open"></span>
+                                    </div>
+                                </div>
+
+                            </f7-block>
+                            <f7-block inset v-for="category in posts" onload="">
+                                <div class="content-block-inner">
+                                    <div class="tag-block-title">
+                                        <span class="tag-block-category">{{category.name}}</span>
+                                        <span class="tag-block-percent">{{category.ratio}}%</span>
+                                        <div class="clear"></div>
+
+
+                                    </div>
+                                    <div class="chip" v-for="tag in sortTags(category.tag,'count')" :key="tag.id">
+
+                                        <div class="chip-label">{{tag.tag}}</div>
+                                        <div class="chip-media">{{tag.count}}</div>
+                                    </div>
+
+                                </div>
+                            </f7-block>
+
+                        </f7-tab>
+                        <f7-tab id="tab2">
+                            <f7-block class="m-b-0 m-t-10">
+                                <div class="date-block">
+                                    <span class="date-title">{{date.month}} {{date.day}} - {{date.month_2}} {{date.day_2}}</span>
+                                    <div class="date-picker">
+                                        <span class="icon-left-open"></span>
+                                        <span class="icon-right-open"></span>
+                                    </div>
+                                </div>
+
+                            </f7-block>
+                            <f7-block inset v-for="category in posts2">
+                                <div class="content-block-inner">
+                                    <div class="tag-block-title">
+                                        <span class="tag-block-category">{{category.name}}</span>
+                                        <span class="tag-block-percent">{{category.ratio}}%</span>
+                                        <div class="clear"></div>
+
+
+                                    </div>
+                                    <div class="chip" v-for="tag in sortTags(category.tag,'count')" :key="tag.id">
+
+                                        <div class="chip-label">{{tag.tag}}</div>
+                                        <div class="chip-media">{{tag.count}}</div>
+                                    </div>
+
+                                </div>
+                            </f7-block>
+                        </f7-tab>
+                        <f7-tab id="tab3">
+                            <f7-block class="m-b-0 m-t-10">
+                                <div class="date-block">
+                                    <span class="date-title">{{date.month}} {{date.year}}</span>
+                                    <div class="date-picker">
+                                        <span class="icon-left-open"></span>
+                                        <span class="icon-right-open"></span>
+                                    </div>
+                                </div>
+
+                            </f7-block>
+                            <f7-block inset v-for="category in posts">
+                                <div class="content-block-inner">
+                                    <div class="tag-block-title">
+                                        <span class="tag-block-category">{{category.name}}</span>
+                                        <span class="tag-block-percent">{{category.ratio}}%</span>
+                                        <div class="clear"></div>
+
+
+                                    </div>
+                                    <div class="chip" v-for="tag in sortTags(category.tag,'count')" :key="tag.id">
+
+                                        <div class="chip-label">{{tag.tag}}</div>
+                                        <div class="chip-media">{{tag.count}}</div>
+                                    </div>
+
+                                </div>
+                            </f7-block>
+                        </f7-tab>
+                    </f7-tabs>
+
+
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-views>
+
+    <!-- Popup -->
+    <f7-popup id="popup" class="post-popup">
+        <f7-view>
+            <f7-pages>
+                <f7-page>
+
+
+                    <f7-list form class="post-form-block" v-model="post">
+                        <a href="#" class="floating-button color-orange link post-add-button" v-on:click="addTag()">
+                            <i class="icon icon-plus"></i>
+                        </a>
+                        <f7-list-item>
+                            <f7-label>Tag Category</f7-label>
+                            <select v-model="postCategory">
+                                <option value="interview">Interview</option>
+                                <option value="job search">Job seraching</option>
+                                <option value="resume">Resume preparation</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </f7-list-item>
+                        <f7-list-item>
+                            <f7-label>Tag Title</f7-label>
+                            <select v-model="postTag" v-bind:class="hasCategory" type="select">
+                                <option v-for="tag in tagInCategory">{{tag.name}}</option>
+                            </select>
+                        </f7-list-item>
+
+                        <f7-list-item>
+                            <f7-label>Time Range</f7-label>
+                            <select v-model="postTime">
+                                <option >Today</option>
+                                <option>Yesterday</option>
+                                <option>This week</option>
+                                <option>Last week</option>
+                                <option>This month</option>
+                                <option>Last month</option>
+                                <option value="custom">Custom date range</option>
+                            </select>
+                        </f7-list-item>
+                        <f7-list-item>
+                            <f7-label>Starts</f7-label>
+                            <f7-input v-bind:class="customTime" type="date" value="-"></f7-input>
+                        </f7-list-item>
+                        <f7-list-item>
+                            <f7-label>Ends</f7-label>
+                            <f7-input v-bind:class="customTime" type="date"  value="-"></f7-input>
+                        </f7-list-item>
+
+
+                        <!--<f7-list-item>-->
+                        <!--<f7-label>Range</f7-label>-->
+                        <!--<f7-input type="range" min="0" max="100" step="1" value="90"></f7-input>-->
+                        <!--</f7-list-item>-->
+                        <f7-list-item>
+                            <f7-label>Tips</f7-label>
+                            <f7-input type="input" placeholder="Share tips to others"></f7-input>
+                        </f7-list-item>
+                    </f7-list>
+
+                    <f7-block class="post-tag-block">
+                        <div class="content-block p-t-20">
+
+                            <h3 class="post-tag-title">
+                                Your added tags show up here:
+                            </h3>
+                            <div class="chip" v-for="tag in addedTags" :key="tag.id">
+
+                                <div class="chip-label">{{tag.tag}}</div>
+                                <a href="#" class="chip-delete"></a>
+                            </div>
+
+                        </div>
+                    </f7-block>
+                    <f7-block class="post-tag-confirm">
+                        <f7-buttons>
+                            <f7-button class="close-popup">CANCEL</f7-button>
+                            <f7-button open-popup="#popupOk" v-on:click="postTags()">CONFIRM</f7-button>
+                        </f7-buttons>
+
+                    </f7-block>
+
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-popup>
+
+
+    <f7-popup id="popupOk" class="post-popup">
+        <f7-view>
+            <f7-pages>
+                <f7-page>
+
+
+                    <f7-block class="post-tag-ok-block">
+                        <div class="content-block p-t-20">
+
+                            <i class="icon-ok-circle post-tag-ok-icon"></i>
+                            <h3 class="post-tag-title text-center">
+                                Thanks for your sharing.
+                            </h3>
+                            <h3 class="post-tag-title text-center m-t-0 m-b-20" >
+                                The tags are successfully posted!
+                            </h3>
+                            <div class="chip" v-for="tag in addedTags" :key="tag.id">
+
+                                <div class="chip-label">{{tag.tag}}</div>
+                                <a href="#" class="chip-delete"></a>
+                            </div>
+
+                        </div>
+                    </f7-block>
+                    <f7-block class="post-tag-confirm">
+                        <f7-buttons>
+                            <f7-button ></f7-button>
+                            <f7-button class="close-popup" v-on:click="finishPostTags()">OK</f7-button>
+                        </f7-buttons>
+
+                    </f7-block>
+
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-popup>
+
+
+    <!-- Login Screen -->
+    <f7-login-screen id="login-screen">
+        <f7-view>
+            <f7-pages>
+                <f7-page login-screen>
+                    <f7-login-screen-title>Login</f7-login-screen-title>
+                    <f7-list form>
+                        <f7-list-item>
+                            <f7-label>Username</f7-label>
+                            <f7-input name="username" placeholder="Username" type="text"></f7-input>
+                        </f7-list-item>
+                        <f7-list-item>
+                            <f7-label>Password</f7-label>
+                            <f7-input name="password" type="password" placeholder="Password"></f7-input>
+                        </f7-list-item>
+                    </f7-list>
+                    <f7-list>
+                        <f7-list-button title="Sign In" close-login-screen></f7-list-button>
+                        <f7-list-label>
+                            <p>Click Sign In to close Login Screen</p>
+                        </f7-list-label>
+                    </f7-list>
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-login-screen>
+</div>
+
+<!-- About Page Template -->
+<template id="page-about">
+    <f7-page>
+        <f7-navbar title="About" back-link="Back" sliding></f7-navbar>
+        <f7-block inner>
+            <p>Here is About page!</p>
+            <p>You can go
+                <f7-link back>back</f7-link>
+                .
+            </p>
+            <p>Mauris posuere sit amet metus id venenatis. Ut ante dolor, tempor nec commodo rutrum, varius at sem.
+                Nullam ac nisi non neque ornare pretium. Nulla mauris mauris, consequat et elementum sit amet, egestas
+                sed orci. In hac habitasse platea dictumst.</p>
+            <p>Fusce eros lectus, accumsan eget mi vel, iaculis tincidunt felis. Nulla tincidunt pharetra sagittis.
+                Fusce in felis eros. Nulla sit amet aliquam lorem, et gravida ipsum. Mauris consectetur nisl non
+                sollicitudin tristique. Praesent vitae metus ac quam rhoncus mattis vel et nisi. Aenean aliquet, felis
+                quis dignissim iaculis, lectus quam tincidunt ligula, et venenatis turpis risus sed lorem. Morbi eu
+                metus elit. Ut vel diam dolor.</p>
+        </f7-block>
+    </f7-page>
+</template>
+
+<!-- Form Page Template -->
+<template id="page-form">
+    <f7-page>
+        <f7-navbar title="Form" back-link="Back" sliding></f7-navbar>
+        <f7-block-title>Form</f7-block-title>
+        <f7-list form>
+            <f7-list-item>
+                <f7-label>Name</f7-label>
+                <f7-input type="text" placeholder="Name"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Password</f7-label>
+                <f7-input type="password" placeholder="Password"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>E-mail</f7-label>
+                <f7-input type="email" placeholder="E-mail"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>URL</f7-label>
+                <f7-input type="url" placeholder="URL"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Phone</f7-label>
+                <f7-input type="tel" placeholder="Phone"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Birth date</f7-label>
+                <f7-input type="date" placeholder="Birth date" value="2014-04-30"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Date time</f7-label>
+                <f7-input type="datetime-local"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Gender</f7-label>
+                <f7-input type="select">
+                    <option value="1">Male</option>
+                    <option value="1">Female</option>
+                </f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Switch</f7-label>
+                <f7-input type="switch"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Range</f7-label>
+                <f7-input type="range" min="0" max="100" step="1" value="90"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label>Textarea</f7-label>
+                <f7-input type="textarea" placeholder="Textarea"></f7-input>
+            </f7-list-item>
+        </f7-list>
+
+        <f7-block-title>Form With Floating Labels</f7-block-title>
+        <f7-list form>
+            <f7-list-item>
+                <f7-label floating>Name</f7-label>
+                <f7-input type="text" placeholder="Name"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label floating>Password</f7-label>
+                <f7-input type="password" placeholder="Password"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-label floating>E-mail</f7-label>
+                <f7-input type="email" placeholder="E-mail"></f7-input>
+            </f7-list-item>
+        </f7-list>
+
+        <f7-block-title>Form Without Labels</f7-block-title>
+        <f7-list form>
+            <f7-list-item>
+                <f7-input type="text" placeholder="Name"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-input type="password" placeholder="Password"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+                <f7-input type="email" placeholder="E-mail"></f7-input>
+            </f7-list-item>
+        </f7-list>
+
+        <f7-block-title>Checkboxes</f7-block-title>
+        <f7-list form>
+            <f7-list-item v-for="n in 3" checkbox name="my-checkbox" :value="n" :title="'Checkbox ' + n"></f7-list-item>
+        </f7-list>
+
+        <f7-block-title>Radios</f7-block-title>
+        <f7-list form>
+            <f7-list-item v-for="n in 3" radio name="my-radio" :checked="n === 1" :value="n"
+                          :title="'Radio ' + n"></f7-list-item>
+        </f7-list>
+
+        <f7-block-title>Buttons</f7-block-title>
+        <f7-block inner>
+            <p>
+                <f7-button>Button</f7-button>
+            </p>
+            <p>
+                <f7-button round>Button Round</f7-button>
+            </p>
+            <p>
+                <f7-button fill>Button Fill</f7-button>
+            </p>
+            <p>
+                <f7-buttons>
+                    <f7-button round active>Button 1</f7-button>
+                    <f7-button round>Button 2</f7-button>
+                    <f7-button round>Button 3</f7-button>
+                </f7-buttons>
+            </p>
+            <p>
+                <f7-buttons color="orange">
+                    <f7-button round big>Button 1</f7-button>
+                    <f7-button round big active>Button 2</f7-button>
+                    <f7-button round big>Button 3</f7-button>
+                </f7-buttons>
+            </p>
+            <p>
+                <f7-grid>
+                    <f7-col>
+                        <f7-button big fill color="green">Send</f7-button>
+                    </f7-col>
+                    <f7-col>
+                        <f7-button big fill color="red">Delete</f7-button>
+                    </f7-col>
+                </f7-grid>
+            </p>
+            <p>
+                <f7-grid>
+                    <f7-col>
+                        <f7-button fill raised color="green">Raised</f7-button>
+                    </f7-col>
+                    <f7-col>
+                        <f7-button raised color="red">Raised</f7-button>
+                    </f7-col>
+                    <f7-col>
+                        <f7-button fill raised color="pink">Raised</f7-button>
+                    </f7-col>
+                </f7-grid>
+            </p>
+        </f7-block>
+    </f7-page>
+</template>
+
+<!-- Dynamic Routing Page Template -->
+<template id="page-dynamic-routing">
+    <f7-page>
+        <f7-navbar title="Dynamic Route" back-link="Back" sliding></f7-navbar>
+        <f7-block inner>
+            <ul>
+                <li><b>Url:</b> {{$route.url}}</li>
+                <li><b>Path:</b> {{$route.path}}</li>
+                <li><b>Hash:</b> {{$route.hash}}</li>
+                <li><b>Params:</b>
+                    <ul>
+                        <li v-for="(value, key) in $route.params"><b>{{key}}:</b> {{value}}</li>
+                    </ul>
+                </li>
+                <li><b>Query:</b>
+                    <ul>
+                        <li v-for="(value, key) in $route.query"><b>{{key}}:</b> {{value}}</li>
+                    </ul>
+                </li>
+                <li><b>Route:</b> {{$route.route}}</li>
+            </ul>
+        </f7-block>
+        <f7-block inner>
+            <f7-link @click="$router.back()">Go back via Router API</f7-link>
+        </f7-block>
+    </f7-page>
+</template>
+
+<script src="js/framework7.min.js"></script>
+
+<script src="js/vue.min.js"></script>
+<script src="js/framework7-vue.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+<script src="js/vuefire.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
