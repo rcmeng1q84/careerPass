@@ -110,7 +110,7 @@ a.tab-link.link.active {
     /*position: relative !important;*/
 }
 .main-tabbar{
-/*position: relative;*/
+    /*position: relative;*/
 }
 
 .date-block{
@@ -161,6 +161,10 @@ a.tab-link.link.active {
     padding-right: 0;
     height : 25px;
 }
+a.chip-label{
+    color: #2a2a2a;
+    padding-right :15px;
+}
 
 .chip-media {
     margin-left: 6px;
@@ -198,7 +202,7 @@ POPUP
 .post-form-block select, .post-form-block input{
     background: #eee !important;
     padding: 2px 10px !important;
-    margin-top: 5px !important;
+    /* margin-top: 5px !important; */
     border-radius: 5px !important;
     border: 0;
     font-size: 16px;
@@ -254,3 +258,66 @@ POPUP
     text-align : center;
     display : block;
 }
+.searchbar{
+    background : none;
+}
+
+
+
+/*
+chart
+*/
+
+.chart-title{
+
+    font-size : 18px;
+    padding-top :15px;
+    margin-bottom : 0;
+    color: #1a1a1a;
+}
+.chart-title b{
+    font-family : 'ProximaNova-Bold', 'Arial';
+    color: #F5A623
+}
+.chart-subtitle{
+
+    color: #9b9b9b;
+    font-size : 12px;
+    line-height : 16px;
+    margin-bottom : 15px;
+    margin-top :5px;
+
+}
+
+.ct-container{
+    position : relative;
+    left: -25px;
+    margin: -25px;
+    margin-top :0;
+}
+
+.ct-line {
+    /* Set the colour of this series line */
+    stroke: #F5A623 !important;
+    /* Control the thikness of your lines */
+    stroke-width: 5px;
+    /* Create a dashed line with a pattern
+    stroke-dasharray: 10px 20px;*/
+}
+
+.ct-series-a .ct-area {
+
+    fill: #F5A623 !important;
+    fill-opacity: 0.56;
+
+}
+
+
+.ct-series-b .ct-point {
+    stroke: #F5A623 !important;
+    fill: #F5A623 !important;
+    -webkit-animation: exploding-stroke 2s ease-out infinite;
+    animation: exploding-stroke 2s ease-out infinite;
+}
+
+@-webkit-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@-moz-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@-ms-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}
