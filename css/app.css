@@ -194,7 +194,7 @@ POPUP
 }
 
 .post-form-block{
-    height : 50%;
+    height: 55%;
     margin : 0;
     padding :0px 20px;
     padding-top :20px;
@@ -231,7 +231,7 @@ POPUP
 }
 
 .post-add-button{
-    top : 50%;
+    top: 55%;
     right : 50px;
 }
 .post-tag-confirm{

@@ -134,7 +134,7 @@
                                 </div>
 
                             </f7-block>
-                            <f7-block inset v-for="category in getDailyData('20171030')">
+                            <f7-block inset v-for="category in getRangeData(date.str,'week')">
                                 <div class="content-block-inner">
                                     <div class="tag-block-title">
                                         <span class="tag-block-category">{{category.name}}</span>
@@ -171,7 +171,7 @@
                                 </div>
 
                             </f7-block>
-                            <f7-block inset v-for="category in getDailyData(date.str)" >
+                            <f7-block inset v-for="category in getRangeData(date.str,'month')" >
                                 <div class="content-block-inner">
                                     <div class="tag-block-title">
                                         <span class="tag-block-category">{{category.name}}</span>

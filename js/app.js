@@ -1,4 +1,3 @@
-
 (function () {
 
 
@@ -98,7 +97,7 @@
                         [{
                             name: 'all',
                             //data: randomNums(this.chartTagData)
-                            data: this.getGraphDataByTag('201711',this.chartTag)
+                            data: this.getGraphDataByTag('201711', this.chartTag)
                         }, {
                             name: 'current',
                             data: [null, null, null, null, null, null, null, null, null, null, null, this.chartTagData, null, null]
@@ -172,7 +171,7 @@
                     var year = Math.round(date / 100);
                     var json = [];
                     for (var ind = 1; ind <= 12; ind++) {
-                        if(ind < mon) {
+                        if (ind < mon) {
                             if (ind < 10) {
                                 json.push({'count': 0, 'ratio': 0, 'time': (year) + '0' + (ind)});
                             } else {
@@ -191,7 +190,7 @@
                         for (var cate in t1) {
                             var t2 = t1[cate];
                             for (var tagin in t2['tag']) {
-                                var taginName=t2['tag'][tagin]['tag'];
+                                var taginName = t2['tag'][tagin]['tag'];
                                 //console.log(tag)
                                 if (taginName.toLowerCase() === tag.toLowerCase()) {
                                     var cur = Math.round(this.connection[time]['.key'] / 100);
@@ -210,10 +209,10 @@
                     for (var content in json) {
                         total += json[content]['count'];
                     }
-                    var tempResult=[];
-                    var result=[];
+                    var tempResult = [];
+                    var result = [];
                     for (var content2 in json) {
-                        if(total == 0) {
+                        if (total == 0) {
                             json[content2]['ratio'] = 0 + '%';
                         } else {
                             json[content2]['ratio'] = Math.round(json[content2]['count'] * 100.0 / total) + '%';
@@ -222,10 +221,10 @@
 
                     }
                     result.push(tempResult[0]);
-                    for(var i=0;i<tempResult.length;i++){
+                    for (var i = 0; i < tempResult.length; i++) {
                         result.push(tempResult[i]);
-                        if(date%100===i+1){
-                            this.chartTagData=tempResult[i];
+                        if (date % 100 === i + 1) {
+                            this.chartTagData = tempResult[i];
                         }
                     }
                     result.push(tempResult[11]);
@@ -332,10 +331,10 @@
 
     // Init App
     var vm = new Vue({
-            el        : '#app',
+            el: '#app',
 
             framework7: {
-                root    : '#app',
+                root: '#app',
 
                 material: true, /* enable Material theme: */
                 routes  : [
@@ -355,7 +354,7 @@
 
             },
 
-            firebase  :
+            firebase:
                 {
                     fb_posts1001: postsRef1001,
                     fb_posts1030: postsRef1030,
@@ -390,24 +389,70 @@
                     var all = this.fb_allPosts
                     for (var k in all) {
                         var originDate = all[k]['.key'];
-                        if (originDate == date) {
+                        if (originDate === date) {
+                            result = pushArrayFromTo(all[k], result);//push all attributes except .key
+                        }
+                    }
+                    return result;
 
-                            for (var j in all[k]) {
-                                if (j !== '.key') {
-                                    result.push(all[k][j])
+                },
+
+                getRangeData: function (date, range) {
+                    var result = [];
+                    var all = this.fb_allPosts;
+                    for (var k in all) {
+                        var originDate = all[k]['.key'];
+                        if (range === 'month' && originDate.substr(4, 2) === date.substr(4, 2)) {
+                            // Push all categories into an array first. Then filter the duplicate items.
+                            result = pushArrayFromTo(all[k], result);
+                        }
+                        else if (range === 'week' && originDate.substr(4, 3) === date.substr(4, 3)) {
+
+                            result = pushArrayFromTo(all[k], result);
+
+                        }
+                    }
+                    var finalResult = [];
+                    var output = [];
+
+                    for (var i = 0; i < result.length; i++) {
+                        var hasCategory = false;
+                        for (var c = 0; c < finalResult.length; c++) {
+                            if (finalResult[c]['name'] === result[i]['name']) {
+                                hasCategory = true;
+                                break;
+                            }
+                        }
+                        if (!hasCategory) {
+                            finalResult.push(result[i])
+                        }
+                    }
+
+                    for (var c = 0; c < finalResult.length; c++) {
+                        var tempArr = [];
+                        for (var i = 0; i < result.length; i++) {
+                            if (finalResult[c]['name'] === result[i]['name']) {
+                                for (var tag in result[i]['tag']) {
+                                    tempArr.push(result[i]['tag'][tag])
                                 }
                             }
 
                         }
-
+                        //console.log(tempArr)
+                        output.push({
+                            name : finalResult[c]['name'],
+                            count: 0,
+                            ratio: 0,
+                            tag  : uniqTagArray(tempArr)
+                        })
                     }
 
-                    //console.log(this.date.str)
-                    //console.log(date)
-                    //console.log(result);
-                    return result;
+                    //console.log(output)
+                    output = updateTagCountStatic(output)
+                    return output;
 
                 },
+
 
                 getDailyOriginData: function (date) {
                     var result = [];
@@ -421,10 +466,6 @@
                         }
 
                     }
-
-                    //console.log(this.date.str)
-                    //console.log(date)
-                    //console.log(result);
                     return result;
 
                 },
@@ -446,8 +487,8 @@
                         this.date.month = 12;
                         this.date.year -= 1;
                     }
-                    if(this.date.year>2017) {
-                        this.date.year=2017
+                    if (this.date.year > 2017) {
+                        this.date.year = 2017
                     }
                 },
 
@@ -496,8 +537,6 @@
                 },
 
 
-
-
                 /*DISPLAY*/
                 sortTags: function (data, key) {
                     var json = [];
@@ -524,8 +563,6 @@
                     //console.log(json);
                     return json;
                 },
-
-
 
 
                 /*POST*/
@@ -621,7 +658,7 @@
                     }
 
                     console.log(categoriesNotIncluded)
-                    for (var c=0;c< categoriesNotIncluded.length;c++) {
+                    for (var c = 0; c < categoriesNotIncluded.length; c++) {
 
 
                         var d = db.ref('post/' + this.date.str + '/' + categoriesNotIncluded[c]);
@@ -693,6 +730,7 @@
                     }
                 },
 
+
                 finishPostTags: function () {
                     this.addedTags = [];
                     this.postTag = '';
@@ -702,7 +740,7 @@
 
             },
 
-            watch   : {
+            watch: {
 
                 postCategory: function (newCategory) {
                     console.log(this.fb_aaa);
@@ -750,7 +788,6 @@
 })();
 
 
-
 function randomNums(n) {
 
     var arr = [];
@@ -774,4 +811,59 @@ function randomNums(n) {
 
     return arr;
 
+}
+
+function updateTagCountStatic(data) {
+    var allCount = 0;
+    for (var k in data) {
+        var countSum = 0;
+        var tagsInCategory = data[k]['tag'];
+        for (var key in tagsInCategory) {
+            var tag = tagsInCategory[key];
+            countSum += tag['count'];
+        }
+        data[k]['count'] = countSum;
+        allCount += countSum;
+    }
+    for (var k in data) {
+        var countInCategory = data[k]['count'];
+        var ratio = parseInt(parseFloat(countInCategory / allCount) * 100);
+        data[k]['ratio'] = ratio;
+    }
+    return data;
+}
+
+function uniqTagArray(arrA) {
+    var arrN = [];
+    var result = [];
+    for (var i = 0; i < arrA.length; i++) {
+        if (arrN.indexOf(arrA[i].tag) === -1) {
+            arrN.push(arrA[i].tag)
+            result.push({
+                add  : arrA[i].add,
+                tag  : arrA[i].tag,
+                count: arrA[i].count
+            })
+        }
+        else {
+            for (var j = 0; j < result.length; j++) {
+                if (result[j].tag === arrA[i].tag) {
+                    result[j].count += arrA[i].count
+                }
+            }
+        }
+    }
+
+    //console.log(result)
+    return result;
+
+}
+
+function pushArrayFromTo(from, to) {
+    for (var j in from) {
+        if (j !== '.key') {
+            to.push(from[j])
+        }
+    }
+    return to;
 }
