@@ -35,7 +35,14 @@
                 date     : 1,
                 week     : 1,
                 str      : ''
-            }
+            },
+        grades:[
+            'freshman',
+            'sophomore',
+            'junior',
+            'senior',
+            'postgraduate'
+        ]
     };
 
     var config = {
@@ -471,16 +478,16 @@
                 },
 
                 checkDate: function () {
-                    if (this.date.date === 31) {
-                        this.date.date = 1;
+                    if (this.date.date >= 31) {
+                        this.date.date -= 30;
                         this.date.month += 1;
                     }
                     if (this.date.month === 13) {
                         this.date.month = 1;
                         this.date.year += 1;
                     }
-                    if (this.date.date === 0) {
-                        this.date.date = 30;
+                    if (this.date.date <= 0) {
+                        this.date.date =30+this.date.date;
                         this.date.month -= 1;
                     }
                     if (this.date.month === 0) {
@@ -513,6 +520,18 @@
 
                 decreaseMonth: function () {
                     this.date.month -= 1;
+                    this.checkDate();
+                    this.updateDateStr();
+                },
+
+                increaseWeek: function () {
+                    this.date.date += 7;
+                    this.checkDate();
+                    this.updateDateStr();
+                },
+
+                decreaseWeek: function () {
+                    this.date.date -= 7;
                     this.checkDate();
                     this.updateDateStr();
                 },

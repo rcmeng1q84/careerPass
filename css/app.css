@@ -118,11 +118,22 @@ a.tab-link.link.active {
 }
 .date-picker{
     float : right;
-    padding-top: 10px;
+    padding-top: 3px;
     color: #C3C8D2;
 }
-.date-picker span{
-    margin-left :10px;
+.date-picker a{
+    display : inline-block;
+    margin: 0;
+    margin-left: 6px;
+    width: 20px !important;
+    padding: 0;
+    min-width: 34px;
+    font-size: 15px;
+    height: 34px;
+    line-height: 37px;
+    border-radius: 50%;
+    background: #edeeef;
+    color: #777777;
 }
 .date-title{
     font-size: 24px;
@@ -152,14 +163,16 @@ a.tab-link.link.active {
 
 .chip{
     /* margin-left : 5px; */
-    margin-right: 10px;
-    margin-top: 8px;
+    margin-right: 8px;
+    margin-top: 5px;
     color: #2a2a2a;
     background : #fff;
     border-radius: 25px;
     padding: 0px 10px;
     padding-right: 0;
-    height : 25px;
+    height: 20px;
+    font-size: 11px;
+    line-height: 15px;
 }
 a.chip-label{
     color: #2a2a2a;
@@ -167,13 +180,14 @@ a.chip-label{
 }
 
 .chip-media {
-    margin-left: 6px;
-    margin-right: 4px;
-    width: 20px;
-    height: 15px;
+    margin-left: 5px;
+    margin-right: 3px;
+    width: 17px;
+    height: 10px;
     border-left: solid 1px #9a9a9a;
     border-radius: 0;
-    font-size: 13px;
+    font-size: 11px;
+    line-height: 15px;
     color: #717171;
     background: #ffffff;
 }

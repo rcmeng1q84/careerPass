@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
+    <title>CareerPass</title>
     <link rel="stylesheet" href="css/framework7.material.min.css">
     <link rel="stylesheet" href="css/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/app.css">
@@ -72,7 +72,8 @@
                         </f7-nav-left>
                         <f7-nav-center sliding>CareerPass</f7-nav-center>
                         <f7-nav-right>
-                            <f7-link open-login-screen="#login-screen"><span class="icon-cog-1"></span></f7-link>
+                            <!--<f7-link open-login-screen="#login-screen"><span class="icon-cog-1"></span></f7-link>-->
+                            <f7-link open-popup="#popupGrade"><span class="icon-cog-1"></span></f7-link>
                         </f7-nav-right>
                     </f7-navbar>
                     <f7-toolbar tabbar class="main-tabbar dark-bg">
@@ -89,8 +90,13 @@
                                 <div class="date-block">
                                     <span class="date-title">{{date.date}} {{date.month_str}}</span>
                                     <div class="date-picker">
-                                        <span @click="decreaseDate" class="icon-left-open"></span>
-                                        <span @click="increaseDate" class="icon-right-open"></span>
+                                        <a @click="decreaseDate"  class="button">
+                                            <span class="icon-left-open"></span>
+                                        </a>
+                                        <a @click="increaseDate"  class="button">
+                                            <span class="icon-right-open"></span>
+                                        </a>
+
                                     </div>
                                 </div>
 
@@ -128,8 +134,13 @@
                                 <div class="date-block">
                                     <span class="date-title">Week{{date.week}} {{date.month_str}}</span>
                                     <div class="date-picker">
-                                        <span class="icon-left-open"></span>
-                                        <span class="icon-right-open"></span>
+                                        <a @click="decreaseWeek"  class="button">
+                                            <span class="icon-left-open"></span>
+                                        </a>
+                                        <a @click="increaseWeek"  class="button">
+                                            <span class="icon-right-open"></span>
+                                        </a>
+
                                     </div>
                                 </div>
 
@@ -165,8 +176,13 @@
                                 <div class="date-block">
                                     <span class="date-title">{{date.month_str}} {{date.year-1}}-{{date.year}}</span>
                                     <div class="date-picker">
-                                        <span @click="decreaseMonth" class="icon-left-open"></span>
-                                        <span @click="increaseMonth" class="icon-right-open"></span>
+                                        <a @click="decreaseMonth"  class="button">
+                                            <span class="icon-left-open"></span>
+                                        </a>
+                                        <a @click="increaseMonth"  class="button">
+                                            <span class="icon-right-open"></span>
+                                        </a>
+
                                     </div>
                                 </div>
 
@@ -322,6 +338,42 @@
     </f7-popup>
 
 
+    <f7-popup id="popupGrade" class="post-popup">
+        <f7-view>
+            <f7-pages>
+                <f7-page>
+
+                    <f7-list form class="post-form-block inputs-list">
+
+                        <f7-list-item class="m-t-50">
+                            <f7-label>Grade Starts</f7-label>
+                            <select type="select">
+                                <option v-for="grade in grades">{{grade}}</option>
+                            </select>
+                        </f7-list-item>
+                        <f7-list-item class="m-t-30">
+                            <f7-label>Grade Ends</f7-label>
+                            <select>
+                                <option v-for="grade in grades">{{grade}}</option>
+                            </select>
+                        </f7-list-item>
+
+                    </f7-list>
+
+                    <f7-block class="post-tag-confirm">
+                        <f7-buttons>
+                            <f7-button class="close-popup">CANCEL</f7-button>
+                            <f7-button class="close-popup">OK</f7-button>
+                        </f7-buttons>
+
+                    </f7-block>
+
+                </f7-page>
+            </f7-pages>
+        </f7-view>
+    </f7-popup>
+
+
     <!-- Login Screen -->
     <f7-login-screen id="login-screen">
         <f7-view>
@@ -351,12 +403,10 @@
 </div>
 
 <!-- About Page Template -->
-<template id="page-about">
+<template id="page-grade">
     <f7-page>
-        <f7-navbar title="About" back-link="Back" sliding></f7-navbar>
-        <f7-block inner>
+        <f7-navbar title="Grade filter" back-link="Back" sliding></f7-navbar>
 
-        </f7-block>
     </f7-page>
 </template>
 
