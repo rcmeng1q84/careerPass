@@ -56,8 +56,7 @@
 
 
     var db = firebase.initializeApp(config).database()
-    var postsRef1001 = db.ref('post/20171001')
-    var postsRef1030 = db.ref('post/20171030')
+
     var postsRef = db.ref('post')
     var postTagToRef = db.ref('post/20171001')
     var aaaRef = db.ref('TagDetail')
@@ -361,10 +360,8 @@
 
             },
 
-            firebase:
-                {
-                    fb_posts1001: postsRef1001,
-                    fb_posts1030: postsRef1030,
+            firebase: {
+
                     fb_allPosts : postsRef,
                     fb_aaa      : aaaRef,
                     fb_postTagTo: postTagToRef
@@ -388,8 +385,6 @@
             },
 
             methods: {
-
-
                 /*DATE*/
                 getDailyData: function (date) {
                     var result = [];
@@ -403,7 +398,6 @@
                     return result;
 
                 },
-
                 getRangeData: function (date, range) {
                     var result = [];
                     var all = this.fb_allPosts;
@@ -459,8 +453,6 @@
                     return output;
 
                 },
-
-
                 getDailyOriginData: function (date) {
                     var result = [];
                     var all = this.fb_allPosts
@@ -476,7 +468,6 @@
                     return result;
 
                 },
-
                 checkDate: function () {
                     if (this.date.date >= 31) {
                         this.date.date -= 30;
@@ -498,44 +489,37 @@
                         this.date.year = 2017
                     }
                 },
-
                 increaseDate: function () {
                     this.date.date += 1;
                     this.checkDate();
                     this.updateDateStr();
                 },
-
                 decreaseDate: function () {
                     this.date.date -= 1;
                     this.checkDate();
                     this.updateDateStr();
                 },
-
                 increaseMonth: function () {
                     this.date.month += 1;
                     this.checkDate();
 
                     this.updateDateStr();
                 },
-
                 decreaseMonth: function () {
                     this.date.month -= 1;
                     this.checkDate();
                     this.updateDateStr();
                 },
-
                 increaseWeek: function () {
                     this.date.date += 7;
                     this.checkDate();
                     this.updateDateStr();
                 },
-
                 decreaseWeek: function () {
                     this.date.date -= 7;
                     this.checkDate();
                     this.updateDateStr();
                 },
-
                 updateDateStr: function () {
                     var dd = this.date.date;
                     var mm = this.date.month;
@@ -554,7 +538,6 @@
                     this.date.str = yyyy + '' + mm + '' + dd
                     //console.log(this.date);
                 },
-
 
                 /*DISPLAY*/
                 sortTags: function (data, key) {
@@ -583,7 +566,6 @@
                     return json;
                 },
 
-
                 /*POST*/
                 getTagNamesByCategory: function (category) {
                     var result = [],
@@ -606,7 +588,6 @@
                     return result;
 
                 },
-
                 addTag: function () {
 
                     if (this.postTag != '') {
@@ -622,7 +603,6 @@
 
                     }
                 },
-
                 postTags: function (data) {
                     var categoriesNotIncluded = [];
                     for (var j in this.addedTags) {
@@ -707,7 +687,6 @@
                     this.updateTagCount(this.getDailyData(this.date.str));
 
                 },
-
                 updateTagCount: function (data) {
                     var allCount = 0;
                     for (var k in data) {
@@ -748,15 +727,11 @@
 
                     }
                 },
-
-
                 finishPostTags: function () {
                     this.addedTags = [];
                     this.postTag = '';
                     this.postCategory = '';
                 },
-
-
             },
 
             watch: {
@@ -796,11 +771,12 @@
                         'disabled': this.postCategory == ''
                     }
                 }
-            }
-            ,
+            },
+
             data    : function () {
                 return states;
             }
+
         }
     );
 

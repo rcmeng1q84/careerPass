@@ -334,4 +334,24 @@ chart
     animation: exploding-stroke 2s ease-out infinite;
 }
 
+#phoneContainer{
+    margin : 0 auto;
+    padding : 0;
+    background : url("../img/phone.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#phone{
+    display: block;
+    position : absolute;
+    margin : 0 auto;
+    padding : 0;
+    transform-origin: top left !important;
+    border-radius         : 5px;
+}
+
+
+
 @-webkit-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@-moz-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@-ms-keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}@keyframes exploding-stroke{0%{stroke-width:2px;opacity:1}100%{stroke-width:20px;opacity:0}}
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/app.css">
+    <title>CareerPass Web Client</title>
+</head>
+<body>
+<div id="phoneContainer">
+
+</div>
+
+<iframe id='phone' src="http://preview.ruichen.info/career/" frameborder="0"></iframe>
+</body>
+
+<script>
+
+    var sHeight=window.innerHeight-32;
+    var sWidth=sHeight/1738*862;
+    var originWidth=380;
+    var originHeight=690;
+
+    var phone=document.getElementById('phone');
+    var phoneContainer=document.getElementById('phoneContainer');
+    var pW=sWidth*0.054;
+    var pH=sHeight*0.1;
+
+    var zeroX=(window.innerWidth-sWidth)/2;
+    var zeroY=(window.innerHeight-sHeight)/2;
+
+    phoneContainer.style.width=sWidth+'px';
+    phoneContainer.style.height=sHeight+'px';
+    phone.style.margin=pH+'px '+pW+'px';
+    phone.width=originWidth;
+    phone.height=originHeight;
+    var targetWidth=sWidth-pW*2;
+    var targetHeight=sHeight-pH*2;
+    phone.style.transform='scale('+targetWidth/ originWidth+','+ targetHeight/originHeight+')';
+
+    phone.style.left=zeroX+'px';
+    phone.style.top=zeroY+'px';
+
+
+</script>
+</html>
